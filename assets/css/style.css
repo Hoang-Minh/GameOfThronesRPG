@@ -1,0 +1,90 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* body {
+    background-image: url("../images/background4.jpg");
+    background-size: cover;
+} */
+
+.fader {
+    opacity: 0.4;
+}
+
+.display-5 {
+    /* color: whitesmoke; */
+    text-align: center;
+}
+
+.logo img {
+    width: 100%;
+    /* height: 400px; */
+}
+
+.jumbotron {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.container {
+    margin-bottom: 0;
+    position: relative;
+    /* margin-top: 100px; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content {
+    margin-top: 0;
+    /* background-image: url("../images/background4.jpg");
+    background-size: cover; */
+}
+.character {
+    width: 100px;
+    /* height: 200px; */
+}
+
+.col-xs-6,
+.myChar {
+    position: relative;
+    /* margin: 0px 50px 0px 0px; */
+    margin-top: 0;
+    margin-bottom: 50px;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+}
+
+.myChar {
+    /* color: whitesmoke; */
+    background-color: none;
+    /* background-color: yellow; */
+    /* text-align: center; */
+}
+
+.name {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    /* background-color: whitesmoke; */
+}
+
+/* @media screen and (min-width: 768px) {
+    
+
+    .character {
+        width: 200px;
+        
+    }
+
+    
+    
+
+    
+} */
