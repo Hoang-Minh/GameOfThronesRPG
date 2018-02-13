@@ -74,14 +74,68 @@ $(document).ready(function() {
     $(document).on("click", ".playBtn", function() {
         // alert()
         $(".myChar").empty();
+        
+
         var fightingCharArr = [chosenHero, chosenEnemy];
-        console.log(fightingCharArr);
+        //console.log(fightingCharArr);
 
         for(var i = 0; i < fightingCharArr.length; i++) {            
             var charThing = $("<div class='myChar col-6' value="+ i +"><img class ='character' src='"+ fightingCharArr[i].image +"'/><div class='name'>" + fightingCharArr[i].name + "</div><div>Attack: <span>" + fightingCharArr[i].attack + "</span></div><div>Defense: <span>" + fightingCharArr[i].defense + "</span></div></div>");
             // console.log(charThing)
             $('#characters').append(charThing)
+            //<progress id="health" value="100" max="100"></progress>
+            var progressBar = $("<progress id='health" + fightingCharArr[i].name + "' value='100' max='100'></progress><div class='remainingHp" + fightingCharArr[i].name + "'>" + fightingCharArr[i].hp + "</div>");
+            // var progressBar = $("<progress id='health' value='100' max='100'></progress><div class='remainingHp" + fightingCharArr[i].name + "'>" + fightingCharArr[i].hp + "</div>");
+            $('#characters').append(progressBar)
+
+            // var health = document.getElementById("health")
+
+            // setInterval(function(){
+            // health.value = Math.random() * 100;
+            // }, 1000);
+
+            //var health = $("#health")
+
         }
+
+        //debugger
+        var attackBtn = $("<button id='attack'>");
+        attackBtn.text("Attack");
+        $("#gamePlay").append(attackBtn)
+
+    })
+
+    $(document).on("click", "#gamePlay", function() {
+        
+        $("#attack").text("Your attack");
+        $("#attack").attr("disabled", true) // disable button
+        
+
+        setTimeout(function() {
+            console.log("hello")
+            var damageToOpponent = (chosenHero.attack / 10) - (chosenEnemy.defense / 10);
+            chosenEnemy.hp -= damageToOpponent;
+            console.log(chosenEnemy.hp);
+            //health.value = chosenEnemy.hp
+            //debugger
+            // get health first
+            var health = $("#health" + chosenEnemy.name)[0];
+            // console.log(health);
+            health.value = chosenEnemy.hp;
+            //(health + chosenEnemy.name).value = chosenEnemy.hp
+            // var test = $(".remainingHp" + chosenEnemy.name);
+            // test.text(chosenEnemy.hp);            
+            $(".remainingHp" + chosenEnemy.name).text(chosenEnemy.hp);
+            // $('#attack').attr("disabled", true) // disable button
+            
+
+            // Enemy attack !!!!
+            // $("#attack").text("Enemy's attack");
+            // damageToOpponent = (chosenEnemy.attack / 10) - (chosenHero.defense / 10);
+            // chosenHero.hp -= damageToOpponent;
+
+            
+        }, 3000);
 
     })
 

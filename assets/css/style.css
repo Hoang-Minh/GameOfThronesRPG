@@ -75,16 +75,17 @@ h4 {
     /* background-color: whitesmoke; */
 }
 
+#gamePlay {
+    text-align: center;
+}
+
 /* @media screen and (min-width: 768px) {
     
-
     .character {
         width: 200px;
         
     }
-
     
     
-
     
 } */
