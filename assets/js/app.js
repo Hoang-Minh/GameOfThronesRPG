@@ -38,18 +38,13 @@ $(document).ready(function() {
     }
 
     function TakeDamge(attacker, defender) {
-        setTimeout(function() {
-            // console.log("hello")
-            debugger;
-            var damageToOpponent = (attacker.attack / 10) - (defender.defense / 10);
-            console.log(damageToOpponent);
-            defender.hp -= damageToOpponent;
-            console.log(defender.hp);
-            
-            var health = $("#health" + defender.name)[0];            
-            health.value = defender.hp;                    
-            $(".remainingHp" + defender.name).text(defender.hp);
-        }, 3000);
+        var damageToOpponent = (attacker.attack / 10) - (defender.defense / 10);
+        console.log(damageToOpponent);
+        defender.hp -= damageToOpponent;
+        console.log(defender.hp);        
+        var health = $("#health" + defender.name)[0];            
+        health.value = defender.hp;                    
+        $(".remainingHp" + defender.name).text(defender.hp);        
     }
 
     $(document).on("click", ".myChar", function() {
@@ -96,7 +91,7 @@ $(document).ready(function() {
             // console.log(charThing)
             $('#characters').append(charThing)
             //<progress id="health" value="100" max="100"></progress>
-            var progressBar = $("<progress id='health" + fightingCharArr[i].name + "' value='100' max='100'></progress><div class='remainingHp" + fightingCharArr[i].name + "'>" + fightingCharArr[i].hp + "</div>");
+            var progressBar = $("<progress id='health" + fightingCharArr[i].description + "' value='100' max='100'></progress><div class='remainingHp" + fightingCharArr[i].description + "'>" + fightingCharArr[i].hp + "</div>");
             // var progressBar = $("<progress id='health' value='100' max='100'></progress><div class='remainingHp" + fightingCharArr[i].name + "'>" + fightingCharArr[i].hp + "</div>");
             $('#characters').append(progressBar)
         }
@@ -109,20 +104,31 @@ $(document).ready(function() {
     })
 
     $(document).on("click", "#gamePlay", function() {
-        
-        $("#attack").text("Your attack");
+
         $("#attack").attr("disabled", true) // disable button
+        $("#attack").text("Your attack");       
         
         // Your attack
+        //debugger;
         TakeDamge(chosenHero, chosenEnemy);
-        
+
         // counter - attack
-        $("#attack").text("Computer's attack");
         TakeDamge(chosenEnemy, chosenHero);
+
+        $("#attack").attr("disabled", false) // enable button
+
+        // if game is over
+        if(isGameOver(chosenHero.hp) || isGameOver(chosenEnemy.hp)) {
+            // specify the winner here
+            // if user is winner, pop up and ask if he wants to continue
+            // if user is loser, go back and init the game.
+        }
         
-        $("#attack").text("Your attack");
-        $("#attack").attr("disabled", false); // enable button
     })
+
+    function isGameOver(hp) {
+        return hp <= 0; 
+    }
 
     var charArr = [
         // Brienne
@@ -132,14 +138,14 @@ $(document).ready(function() {
             attack : 70,
             defense : 10,
             image : "assets/images/Brienne.jpg",
-            description : "Brienne is the daughter and only surviving child of Lord Selwyn Tarth, Lord of Evenfall Hall on the island of Tarth"
+            description : "Brienne"
         },
         // Bronn
         {
             name : "Bronn",
             hp : 100,
             attack : 75,
-            defense : 5,
+            defense : 50,
             image : "assets/images/Bronn.jpg",
             description : "Bronn"
         },
@@ -150,7 +156,7 @@ $(document).ready(function() {
             attack : 80,
             defense : 20,
             image : "assets/images/TheHound.jpg",
-            description : "The Hound"
+            description : "TheHound"
         },
         // Tyrion
         {
