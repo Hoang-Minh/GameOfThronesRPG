@@ -37,6 +37,21 @@ $(document).ready(function() {
         }
     }
 
+    function TakeDamge(attacker, defender) {
+        setTimeout(function() {
+            // console.log("hello")
+            debugger;
+            var damageToOpponent = (attacker.attack / 10) - (defender.defense / 10);
+            console.log(damageToOpponent);
+            defender.hp -= damageToOpponent;
+            console.log(defender.hp);
+            
+            var health = $("#health" + defender.name)[0];            
+            health.value = defender.hp;                    
+            $(".remainingHp" + defender.name).text(defender.hp);
+        }, 3000);
+    }
+
     $(document).on("click", ".myChar", function() {
         
         if (isHeroChosen === false) {
@@ -72,12 +87,9 @@ $(document).ready(function() {
     })
 
     $(document).on("click", ".playBtn", function() {
-        // alert()
-        $(".myChar").empty();
         
-
-        var fightingCharArr = [chosenHero, chosenEnemy];
-        //console.log(fightingCharArr);
+        $(".myChar").empty();
+        var fightingCharArr = [chosenHero, chosenEnemy];       
 
         for(var i = 0; i < fightingCharArr.length; i++) {            
             var charThing = $("<div class='myChar col-6' value="+ i +"><img class ='character' src='"+ fightingCharArr[i].image +"'/><div class='name'>" + fightingCharArr[i].name + "</div><div>Attack: <span>" + fightingCharArr[i].attack + "</span></div><div>Defense: <span>" + fightingCharArr[i].defense + "</span></div></div>");
@@ -87,22 +99,13 @@ $(document).ready(function() {
             var progressBar = $("<progress id='health" + fightingCharArr[i].name + "' value='100' max='100'></progress><div class='remainingHp" + fightingCharArr[i].name + "'>" + fightingCharArr[i].hp + "</div>");
             // var progressBar = $("<progress id='health' value='100' max='100'></progress><div class='remainingHp" + fightingCharArr[i].name + "'>" + fightingCharArr[i].hp + "</div>");
             $('#characters').append(progressBar)
-
-            // var health = document.getElementById("health")
-
-            // setInterval(function(){
-            // health.value = Math.random() * 100;
-            // }, 1000);
-
-            //var health = $("#health")
-
         }
 
         //debugger
         var attackBtn = $("<button id='attack'>");
         attackBtn.text("Attack");
         $("#gamePlay").append(attackBtn)
-
+        $(".playBtn").hide();
     })
 
     $(document).on("click", "#gamePlay", function() {
@@ -110,33 +113,15 @@ $(document).ready(function() {
         $("#attack").text("Your attack");
         $("#attack").attr("disabled", true) // disable button
         
-
-        setTimeout(function() {
-            console.log("hello")
-            var damageToOpponent = (chosenHero.attack / 10) - (chosenEnemy.defense / 10);
-            chosenEnemy.hp -= damageToOpponent;
-            console.log(chosenEnemy.hp);
-            //health.value = chosenEnemy.hp
-            //debugger
-            // get health first
-            var health = $("#health" + chosenEnemy.name)[0];
-            // console.log(health);
-            health.value = chosenEnemy.hp;
-            //(health + chosenEnemy.name).value = chosenEnemy.hp
-            // var test = $(".remainingHp" + chosenEnemy.name);
-            // test.text(chosenEnemy.hp);            
-            $(".remainingHp" + chosenEnemy.name).text(chosenEnemy.hp);
-            // $('#attack').attr("disabled", true) // disable button
-            
-
-            // Enemy attack !!!!
-            // $("#attack").text("Enemy's attack");
-            // damageToOpponent = (chosenEnemy.attack / 10) - (chosenHero.defense / 10);
-            // chosenHero.hp -= damageToOpponent;
-
-            
-        }, 3000);
-
+        // Your attack
+        TakeDamge(chosenHero, chosenEnemy);
+        
+        // counter - attack
+        $("#attack").text("Computer's attack");
+        TakeDamge(chosenEnemy, chosenHero);
+        
+        $("#attack").text("Your attack");
+        $("#attack").attr("disabled", false); // enable button
     })
 
     var charArr = [
