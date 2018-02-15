@@ -41,7 +41,9 @@ $(document).ready(function() {
         var damageToOpponent = (attacker.attack / 10) - (defender.defense / 10);
         console.log(damageToOpponent);
         defender.hp -= damageToOpponent;
-        console.log(defender.hp);        
+        console.log(defender.hp);
+        
+        
         var health = $("#health" + defender.name)[0];            
         health.value = defender.hp;                    
         $(".remainingHp" + defender.name).text(defender.hp);        
@@ -111,19 +113,24 @@ $(document).ready(function() {
         // Your attack
         //debugger;
         TakeDamge(chosenHero, chosenEnemy);
-
-        // counter - attack
-        TakeDamge(chosenEnemy, chosenHero);
-
-        $("#attack").attr("disabled", false) // enable button
-
-        // if game is over
-        if(isGameOver(chosenHero.hp) || isGameOver(chosenEnemy.hp)) {
-            // specify the winner here
-            // if user is winner, pop up and ask if he wants to continue
-            // if user is loser, go back and init the game.
+        if(isGameOver(chosenEnemy.hp)) {
+            // user is winner
+            // pop up and ask if he wants to continue
+            alert("you win")
         }
-        
+        else {
+            // counter - attack
+            TakeDamge(chosenEnemy, chosenHero);
+            if(isGameOver(chosenHero.hp)) {
+                alert("you lose");
+                // user lose
+                // restart the game
+                initGame();
+            }
+            else {
+                $("#attack").attr("disabled", false) // enable button
+            }
+        }
     })
 
     function isGameOver(hp) {
